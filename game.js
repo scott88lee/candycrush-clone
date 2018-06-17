@@ -1,5 +1,8 @@
 var gameChar = ['@', 'X', 'A', 'M'];
 var shadowBoard = [];
+var hMatch = []; //Hmatch vs Vmatch
+var vMatch = []; //
+var move = [];
 
 function generateBoard(size) {  //Dynamically generate board
   for (var i=0; i<size; i++) {
@@ -50,7 +53,28 @@ function randomizeShadowBoard(){
 }
 
 function game() {
-  console.log('Hey');
+ console.log('Hey');
 }
 
-generateBoard(5, 5); 
+function checkBoard(){
+  //check row
+  for (var i=0; i<shadowBoard.length; i++){
+    for (var k=0; k<shadowBoard.length-2; k++){
+      if (shadowBoard[i][k] == shadowBoard[i][k+1] && shadowBoard[i][k+1] == shadowBoard[i][k+2]){
+        hMatch.push([i,k]);
+      }
+    }
+  }
+
+  for (var i=0; i<shadowBoard.length-2; i++){
+    for (var k=0; k<shadowBoard.length; k++){
+      if (shadowBoard[i][k] == shadowBoard[i+1][k] && shadowBoard[i+1][k] == shadowBoard[i+2][k]){
+        vMatch.push([i,k]);
+      }
+    }
+  }
+}  
+
+
+generateBoard(5); 
+
