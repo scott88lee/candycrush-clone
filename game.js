@@ -3,7 +3,8 @@ var shadowBoard = [];
 var hMatch = []; //Hmatch vs Vmatch
 var vMatch = []; //
 var move = [];
-
+var bool = true;
+ 
 function generateBoard(size) {  //Dynamically generate board
   for (var i=0; i<size; i++) {
     
@@ -68,18 +69,20 @@ function fillHoles(){
 }
 
 function game() {
-  if (move.length < 2){
-    move.push([this.row,this.col]);
-    console.log(move);
-  } else if (move.length == 2){
-    console.log(move);
-    var tempX = shadowBoard[move[0][0]][move[0][0]];
-    var tempY = shadowBoard[move[0][0]][move[0][1]];
-    shadowBoard[move[0][0]][move[0][0]] = shadowBoard[move[1][0]][move[1][0]];
-    shadowBoard[move[0][0]][move[0][1]] = shadowBoard[move[1][0]][move[1][1]];
-    shadowBoard[move[1][0]][move[1][0]] = tempX;
-    shadowBoard[move[1][0]][move[1][1]] = tempY;
-    move = [];
+  if (bool==false){
+    if (move.length < 1) {
+      move.push(this.row);
+      move.push(this.col);
+  
+    } else if (move.length == 2) {
+
+      var temp = shadowBoard[move[0]][move[1]];
+      shadowBoard[move[0]][move[1]] = shadowBoard[this.row][this.col];
+      shadowBoard[this.row][this.col] = temp;
+      move = [];
+    }
+  console.log(this.row);
+  console.log(this.col);
   }
 
   do {
@@ -89,6 +92,7 @@ function game() {
     fillHoles();
     setTimeout(updateDisplay, 400);
   } while ( checkBoard() );
+  bool = false;
 }
 
 function checkBoard(){
@@ -97,7 +101,6 @@ function checkBoard(){
     for (var k=0; k<shadowBoard.length-2; k++){
       if (shadowBoard[i][k] == shadowBoard[i][k+1] && shadowBoard[i][k+1] == shadowBoard[i][k+2]){
         hMatch.push([i,k]);
-        return true;
       }
     }
   }
@@ -106,7 +109,6 @@ function checkBoard(){
     for (var k=0; k<shadowBoard.length; k++){
       if (shadowBoard[i][k] == shadowBoard[i+1][k] && shadowBoard[i+1][k] == shadowBoard[i+2][k]){
         vMatch.push([i,k]);
-        return true;
       }
     }
   }
