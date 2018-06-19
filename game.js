@@ -4,6 +4,7 @@ var hMatch = []; //Hmatch vs Vmatch
 var vMatch = []; //
 var move = [];
 var bool = true;
+score = 0;
  
 function generateBoard(size) {  //Dynamically generate board
   for (var i=0; i<size; i++) {
@@ -35,6 +36,7 @@ function generateBoard(size) {  //Dynamically generate board
     //Creates break for the next row
   }
   game();
+  score = 0;
 }
 
 function updateDisplay(){
@@ -44,6 +46,7 @@ function updateDisplay(){
       divList[(i*5)+k].textContent = shadowBoard[i][k];
     }
   }
+  document.querySelector('span').textContent = score;
 }
 
 function randomizeBoard(){
@@ -101,6 +104,7 @@ function checkBoard(){
     for (var k=0; k<shadowBoard.length-2; k++){
       if (shadowBoard[i][k] == shadowBoard[i][k+1] && shadowBoard[i][k+1] == shadowBoard[i][k+2]){
         hMatch.push([i,k]);
+        score++;
       }
     }
   }
@@ -109,6 +113,7 @@ function checkBoard(){
     for (var k=0; k<shadowBoard.length; k++){
       if (shadowBoard[i][k] == shadowBoard[i+1][k] && shadowBoard[i+1][k] == shadowBoard[i+2][k]){
         vMatch.push([i,k]);
+        score++;
       }
     }
   }
