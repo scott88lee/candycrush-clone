@@ -5,3 +5,7 @@ Attempt at making a candy crush clone
 1. Generate boxes
 2. Event-listeners to boxes
 3. Game Functions
+
+## Bugs:
+
+Doesn't auto clear after fill.
